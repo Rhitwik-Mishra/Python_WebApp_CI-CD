@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: python-webapp
-        image: ashitta/flask-app:v5
+        image: rhitwik/flask-app:latest
         imagePullPolicy: Always   # 🔥 VERY IMPORTANT (ADD THIS)
         ports:
         - containerPort: 5000
