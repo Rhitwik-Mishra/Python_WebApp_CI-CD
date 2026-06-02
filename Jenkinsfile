@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-cred'
         KUBECONFIG_CREDENTIALS_ID = 'k8-cred2'
-        DOCKER_IMAGE = 'rhitwik/flask-app'   // ✅ your image
+        DOCKER_IMAGE = 'rhitwik/flask-app'
     }
 
     stages {
@@ -35,15 +35,15 @@ pipeline {
 
         stage('Verify Workspace') {
             steps {
-                sh 'ls -l'
-                sh 'ls -l k8s'
+                bat 'dir'
+                bat 'dir k8s'
             }
         }
 
         stage('Deploy') {
             steps {
                 withKubeConfig([credentialsId: KUBECONFIG_CREDENTIALS_ID]) {
-                    sh 'kubectl apply -f k8s/'
+                    bat 'kubectl apply -f k8s\\'
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
         stage('Rollout Deployment') {
             steps {
                 withKubeConfig([credentialsId: KUBECONFIG_CREDENTIALS_ID]) {
-                    sh 'kubectl rollout restart deployment/python-webapp -n webapps'
+                    bat 'kubectl rollout restart deployment/python-webapp -n webapps'
                 }
             }
         }
