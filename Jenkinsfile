@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-cred'
         KUBECONFIG_CREDENTIALS_ID = 'k8-cred2'
-        DOCKER_IMAGE = 'ashitta/flask-app'   // ✅ your image
+        DOCKER_IMAGE = 'rhitwik/flask-app'   // ✅ your image
     }
 
     stages {
