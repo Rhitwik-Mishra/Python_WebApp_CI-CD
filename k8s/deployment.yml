@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-webapp
+  namespace: webapps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-webapp
+  template:
+    metadata:
+      labels:
+        app: python-webapp
+    spec:
+      containers:
+      - name: python-webapp
+        image: ashitta/flask-app:v5
+        imagePullPolicy: Always   # 🔥 VERY IMPORTANT (ADD THIS)
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MYSQL_USER
+          value: root              # 🔥 simplify (avoid secret issues)
+        - name: MYSQL_PASSWORD
+          value: password
+        - name: MYSQL_HOST
+          value: mysql.webapps.svc.cluster.local   # 🔥 FULL DNS (fix connection)
+        - name: MYSQL_DATABASE
+          value: userdb
