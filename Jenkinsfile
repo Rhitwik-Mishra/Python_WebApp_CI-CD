@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-cred'
         DOCKER_IMAGE = 'rhitwik/flask-app'
+        KUBECONFIG_PATH = 'C:\\Users\\incre\\.kube\\config'
     }
 
     stages {
@@ -41,13 +42,13 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                bat 'kubectl apply -f k8s\\'
+                bat 'kubectl --kubeconfig="%KUBECONFIG_PATH%" apply -f k8s\\'
             }
         }
 
         stage('Rollout Deployment') {
             steps {
-                bat 'kubectl rollout restart deployment/python-webapp -n webapps'
+                bat 'kubectl --kubeconfig="%KUBECONFIG_PATH%" rollout restart deployment/python-webapp -n webapps'
             }
         }
     }
